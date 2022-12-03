@@ -1,0 +1,63 @@
+{% extends 'layouts/main2.html' %}
+
+{% block title %}
+    Info product
+{% endblock %}
+
+{% block content %}
+    <style>
+        .product {
+            width: 70%;
+            margin-left: 15%;
+        }
+        .reviews {
+            width: 70%;
+            margin-left: 15%;
+        }
+        .review {
+            background: #242b2e;
+            color: #fff;
+            margin-bottom: 20px;
+            padding: 8px;
+        }
+        .create_feedback {
+            width: 70%;
+            margin-left: 15%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <div class="product">
+        <div class="img">
+            <img src="/media/{{ product.product_cover }}/" alt="">
+        </div>
+        <div class="info">
+            <div style="display: flex; justify-content: space-between">
+                <h1>{{ product.title }}</h1>
+                <h1>{{ product.author.username }}</h1>
+            </div>
+            <h5>{{ product.description }}</h5>
+        <p>{{ product.price }}</p>
+            <div class="reviews">
+                {% for review in reviews %}
+                    <p>{{ review.title }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="create_feedback">
+        <form action="/products/{{ product.title }}/{{ product.id }}/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="btn btn-primary" value="leave to feedback">
+        </form>
+    </div>
+    <div class="reviews">
+        {% for rev in reviews %}
+            <div class="review">
+                <p class="author">{{ rev.author.username }}</p>
+                <p class="text">{{ rev.text }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

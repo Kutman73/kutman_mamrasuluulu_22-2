@@ -1,0 +1,89 @@
+{% extends 'layouts/main2.html' %}
+
+{% block title %}
+    Products
+{% endblock %}
+
+
+{% block content %}
+    <div class="container cpb" data-print="true">
+        <h1 class="page-title pt-3 px-3">Products</h1>
+        <style>
+            .posts {
+                display: flex;
+                flex-wrap: wrap;
+                margin-right: +10px;
+                margin-left: +10px;
+                content: normal;
+            }
+            .te {
+                width: 800px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .card-post {
+                height: auto;
+                display: flex;
+                flex-wrap: nowrap;
+                width: 100%;
+                align-items: stretch;
+                padding: 2rem;
+            }
+        </style>
+        <div>
+            <form action="/products/" method="get" class="search">
+                {% if category_id %}
+                    <input type="hidden" name="category_id" value="{{ category_id }}">
+                {% endif %}
+            <span style="margin-right: 16px">Search</span>
+            <input type="text" name="search" value="">
+            </form>
+        </div>
+        <div class="posts">
+            {% for product in products %}
+                <div class="card-post">
+                    <div class="article-card-img" style="min-height: 170px; min-width: 158px">
+                        <div class="article-img">
+                            <img src="/media/{{ product.product_cover }}/" style="height: 170px; width: 155px;">
+                        </div>
+                    </div>
+                    <div class="article-card-details">
+                        <h2 class="article-card-title">{{ product.title }}</h2>
+                        <p class="te">{{ product.description }}</p>
+                        <a href="/products/{{ product.title }}/{{ product.id }}/" class="btn btn-primary">More</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+{#{% block content %}#}
+{#    <style type="text/css">#}
+{#        .products {#}
+{#            display: flex;#}
+{#            justify-content: space-between;#}
+{#            margin-left: 1%;#}
+{#            width: 80%;#}
+{#            flex-wrap: wrap;#}
+{#        }#}
+{#    </style>#}
+{#    <div class="products">#}
+{#        {% for product in products %}#}
+{#            <div class="card" style="width: 25%;">#}
+{#                <div class="card_body">#}
+{#                    <h5>{{ product.title }}</h5>#}
+{#                    {% for category in product.categorias %}#}
+{#                        <div>{{ category.product_categorias }}</div>#}
+{#                    {% endfor %}#}
+{#                    <a href="/products/{{ product.title }}/{{ product.id }}/" class="btn btn-primary">More</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#{% endblock %}#}

@@ -1,0 +1,27 @@
+{% extends 'layouts/main2.html' %}
+
+{% block title %}
+    Categorias
+{% endblock %}
+
+{% block content %}
+    <style type="text/css">
+        .categorias {
+            display: flex;
+            justify-content: space-between;
+            margin-left: 1%;
+            width: 80%;
+            flex-wrap: wrap;
+        }
+    </style>
+    <div class="categorias">
+        {% for category in categorias %}
+            <div class="card" style="width: 25%;">
+                <div class="card_body">
+                    <h5>{{ category.product_categorias }}</h5>
+                    <a href="/products?category_id={{ category.id }}" class="btn btn-primary">All</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
