@@ -17,7 +17,7 @@
         .review {
             background: #242b2e;
             color: #fff;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             padding: 8px;
         }
         .create_feedback {
@@ -29,19 +29,26 @@
     </style>
     <div class="product">
         <div class="img">
-            <img src="/media/{{ product.product_cover }}/" alt="">
+            <img src="/media/{{ product.product_cover }}/" alt="" width="700">
         </div>
         <div class="info">
             <div style="display: flex; justify-content: space-between">
                 <h1>{{ product.title }}</h1>
                 <h1>{{ product.author.username }}</h1>
             </div>
-            <h5>{{ product.description }}</h5>
-        <p>{{ product.price }}</p>
-            <div class="reviews">
-                {% for review in reviews %}
-                    <p>{{ review.title }}</p>
+            <div>
+                {% for category in categorias %}
+                    {% if category.product__id == product.id %}
+                        <p>{{ category.title }}</p>
+                    {% endif %}
                 {% endfor %}
+            </div>
+            <p>{{ product.price }}</p>
+            <h5>{{ product.description }}</h5>
+            <div class="reviews">
+{#                {% for review in reviews %}#}
+                <p>{{ review.title }}</p>
+{#                {% endfor %}#}
             </div>
         </div>
     </div>
@@ -49,15 +56,17 @@
         <form action="/products/{{ product.title }}/{{ product.id }}/" method="post">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" class="btn btn-primary" value="leave to feedback">
+            <input type="submit" class="btn btn-primary" value="leave feedback">
         </form>
     </div>
     <div class="reviews">
-        {% for rev in reviews %}
-            <div class="review">
-                <p class="author">{{ rev.author.username }}</p>
-                <p class="text">{{ rev.text }}</p>
-            </div>
+        {% for review in reviews %}
+        {% if review.product_id == product.id %}
+                <div class="review">
+                    <p class="author">{{ review.author.username }}</p>
+                    <p class="text">{{ review.text }}</p>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% endblock %}

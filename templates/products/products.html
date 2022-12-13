@@ -9,7 +9,7 @@
     <div class="container cpb" data-print="true">
         <h1 class="page-title pt-3 px-3">Products</h1>
         <style>
-            .posts {
+            .products {
                 display: flex;
                 flex-wrap: wrap;
                 margin-right: +10px;
@@ -40,7 +40,7 @@
             <input type="text" name="search" value="">
             </form>
         </div>
-        <div class="posts">
+        <div class="products">
             {% for product in products %}
                 <div class="card-post">
                     <div class="article-card-img" style="min-height: 170px; min-width: 158px">
@@ -51,10 +51,18 @@
                     <div class="article-card-details">
                         <h2 class="article-card-title">{{ product.title }}</h2>
                         <p class="te">{{ product.description }}</p>
+
                         <a href="/products/{{ product.title }}/{{ product.id }}/" class="btn btn-primary">More</a>
                     </div>
                 </div>
             {% endfor %}
+        </div>
+        <div>
+        {% for page in max_page %}
+            <a href="/products/?page={{ page }}">
+                <button>{{ page }}</button>
+            </a>
+        {% endfor %}
         </div>
     </div>
 {% endblock %}
